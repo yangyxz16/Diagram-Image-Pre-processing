@@ -7,7 +7,7 @@ This is a temporary script file.
 # Improting Image class from PIL module 
 from PIL import Image 
 
-im = Image.open(r"C:\Users\yangy\Desktop\0001.jpg") 
+im = Image.open(r"C:\Users\yangy\Desktop\0818.jpg") 
 # Size of the image in pixels (size of orginal image) 
 # (This is not mandatory) 
 width, height = im.size 
@@ -22,7 +22,4 @@ bottom = height * 0.88
 # (It will not change orginal image) 
 im1 = im.crop((left, top, right, bottom)) 
 
-im2 = im1.convert('L')
-
-
-im2.show();
+im1.show();
