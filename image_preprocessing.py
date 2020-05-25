@@ -5,26 +5,50 @@ Created on Sun May 24 16:24:05 2020
 @author: yangy
 """
 
-# Improting Image class from PIL module 
 import cv2
 import numpy as np
+import glob
 
-img = cv2.imread(r"C:\Users\yangy\Desktop\0001.jpg")
-
-height, width = img.shape[:2]
-start_height = int(height * .5)
-end_height, end_width = int(height * .88), int(width * .5)
-cropped_img = img[start_height:end_height , 0:end_width]
-
-hsv = cv2.cvtColor(cropped_img, cv2.COLOR_BGR2HSV)
-
+i = 1
+# Lower and upper range of green
+# 绿色的区间
 lower_range = np.array([40, 40,40])
 upper_range = np.array([70, 255,255])
 
-mask = cv2.inRange(hsv, lower_range, upper_range)
-cv2.imshow("Original Image", img)
-cv2.imshow("Cropped Image", cropped_img)
-cv2.imshow("Mask", mask)
+load_from_folder = "C:/Users/yangy/.spyder-py3/image/not_processed/"
+save_to_folder = "image/preprocessed_image/"
 
-cv2.waitKey(0)
+
+for img_file in glob.glob(load_from_folder + "*.jpg"):
+    img = cv2.imread(img_file)
+    height, width = img.shape[:2]
+    start_height = int(height * .5)
+    end_height, end_width = int(height * .88), int(width * .5)
+    
+    # Crop image
+    # 剪切图片
+    cropped_img = img[start_height:end_height , 0:end_width]
+
+    # Convert to HSV
+    # 转换成HSV
+    hsv = cv2.cvtColor(cropped_img, cv2.COLOR_BGR2HSV)
+
+    # Show only the green range
+    # 只显示绿色
+    mask = cv2.inRange(hsv, lower_range, upper_range)
+
+    # Show the image
+    # 显示图片
+    cv2.imshow("Mask", mask)
+    #filename = "C:/User/yangy/Desktop/aaaaaa.jpg"
+
+    # Save the image
+    # 保存图片
+    cv2.imwrite(save_to_folder + str(i) + ".jpg", mask)
+    
+    print(i)
+
+    i += 1
+    
+#cv2.waitKey(0)
 cv2.destroyAllWindows()
