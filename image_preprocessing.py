@@ -15,10 +15,11 @@ i = 1
 lower_range = np.array([40, 40,40])
 upper_range = np.array([70, 255,255])
 
-load_from_folder = "C:/Users/yangy/.spyder-py3/image/not_processed/"
-save_to_folder = "image/preprocessed_image/"
+load_from_folder = "image/pre_processed/"
+save_to_folder = "image/processed/"
 
-
+# Loop through every jpg file in the folder
+# 读取文件夹中的没个jpg文件
 for img_file in glob.glob(load_from_folder + "*.jpg"):
     img = cv2.imread(img_file)
     height, width = img.shape[:2]
